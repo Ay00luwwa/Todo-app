@@ -1,0 +1,18 @@
+<h1>My ToDo Lists</h1>
+{% for list in lists %}
+    <h2>{{ list.title }}</h2>
+    <ul>
+        {% for task in list.todo_set.all %}
+            <li>
+                {{ task.task }}
+                {% if task.completed %}
+                    (Completed)
+                {% else %}
+                    <a href="{% url 'complete_task' task.id %}">Mark as Completed</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_task' list.id %}">Add Task</a>
+{% endfor %}
+<a href="{% url 'add_list' %}">Add List</a>
